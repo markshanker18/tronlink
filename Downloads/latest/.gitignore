@@ -12,3 +12,6 @@ vite.config.ts.*
 .config/
 .local/
 neondb_full_*.sql
+
+.vercel
+.env*.local
