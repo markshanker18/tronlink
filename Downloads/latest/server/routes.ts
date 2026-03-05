@@ -617,7 +617,7 @@ export async function registerRoutes(app: Express): Promise<void> {
     session({
       store: new PgStore({
         conString: databaseUrl,
-        createTableIfMissing: true,
+        createTableIfMissing: false,
       }),
       secret: sessionSecret,
       proxy: isProduction,

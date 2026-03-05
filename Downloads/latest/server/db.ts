@@ -51,6 +51,9 @@ export async function ensureDatabaseCompatibility(): Promise<void> {
     `);
 
     compatibilityEnsured = true;
+  } catch (err: any) {
+    console.error("Database compatibility check warning:", err.message);
+    // Continue anyway; if columns are missing, specific queries will fail naturally.
   } finally {
     client.release();
   }
