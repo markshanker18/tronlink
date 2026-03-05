@@ -1,17 +1,21 @@
 import type { Express } from "express";
-import { createApp } from "../server/app";
 
 let appPromise: Promise<Express> | null = null;
 
-function getApp() {
-  if (!appPromise) {
-    appPromise = createApp();
-  }
-
-  return appPromise;
-}
-
 export default async function handler(req: any, res: any) {
-  const app = await getApp();
-  return app(req, res);
+  try {
+    const { createApp } = await import("../server/app.js");
+    if (!appPromise) {
+      appPromise = createApp();
+    }
+    const app = await appPromise;
+    return app(req, res);
+  } catch (err: any) {
+    console.error("Initialization error:", err);
+    res.status(500).json({
+      error: "Initialization error",
+      message: err.message,
+      stack: err.stack,
+    });
+  }
 }

@@ -1,7 +1,7 @@
 import "dotenv/config";
 import express, { type Request, type Response, type NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { ensureDatabaseCompatibility } from "./db";
+import { registerRoutes } from "./routes.js";
+import { ensureDatabaseCompatibility } from "./db.js";
 
 declare module "http" {
   interface IncomingMessage {

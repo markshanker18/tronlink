@@ -1,6 +1,6 @@
 import TronWeb from "tronweb";
-import { type Plan } from "../shared/schema";
-import { getRpcUrls } from "./rpc";
+import { type Plan } from "../shared/schema.js";
+import { getRpcUrls } from "./rpc.js";
 
 export async function verifyTronTx(
   plan: Plan,

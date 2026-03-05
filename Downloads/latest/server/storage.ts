@@ -1,5 +1,5 @@
-import { type User, type InsertUser, type Plan, type InsertPlan, type Subscription, type InsertSubscription, type SchedulerLog, type UserWallet, type InsertWallet, users, plans, subscriptions, schedulerLogs, schedulerState, wallets, normalizeAddress, compareAddresses } from "../shared/schema";
-import { db } from "./db";
+import { type User, type InsertUser, type Plan, type InsertPlan, type Subscription, type InsertSubscription, type SchedulerLog, type UserWallet, type InsertWallet, users, plans, subscriptions, schedulerLogs, schedulerState, wallets, normalizeAddress, compareAddresses } from "../shared/schema.js";
+import { db } from "./db.js";
 import { eq, and, lte, lt, isNotNull, desc, inArray, sql } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { formatUnits, getAddress, parseUnits } from "ethers";
