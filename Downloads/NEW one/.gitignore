@@ -1,0 +1,26 @@
+node_modules
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gz
+.env
+.env.*
+!.env.example
+
+# Local-only directories / dumps
+.config/
+.local/
+neondb_full_*.sql
+
+# AI / IDE tooling
+.gemini/
+.cursor/
+.vscode/
+
+# Temp build artifacts
+tmp_error.txt
+tsc_output.txt
+
+# OS
+Thumbs.db
