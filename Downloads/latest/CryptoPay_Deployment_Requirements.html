@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CryptoPay — Deployment Requirements</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #1a1a2e;
+      background: #fff;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 40px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding-bottom: 32px;
+      border-bottom: 3px solid #2563eb;
+      margin-bottom: 36px;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+    .header .subtitle {
+      font-size: 15px;
+      color: #64748b;
+      margin-top: 6px;
+      font-weight: 400;
+    }
+    .header .date {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+
+    /* Section */
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 32px 0 16px 0;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+    h2 .num {
+      display: inline-block;
+      background: #2563eb;
+      color: #fff;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      font-size: 13px;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #334155;
+      margin: 20px 0 10px 0;
+    }
+
+    p, li { font-size: 13.5px; color: #334155; }
+    p { margin-bottom: 10px; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 20px 0;
+      font-size: 13px;
+    }
+    thead th {
+      background: #1e293b;
+      color: #fff;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    thead th:first-child { border-radius: 6px 0 0 0; }
+    thead th:last-child { border-radius: 0 6px 0 0; }
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+    tbody tr:nth-child(even) { background: #f8fafc; }
+    tbody tr:last-child td:first-child { border-radius: 0 0 0 6px; }
+    tbody tr:last-child td:last-child { border-radius: 0 0 6px 0; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .badge-red { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+    .badge-yellow { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+    .badge-green { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    .badge-free { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+
+    .cost { font-weight: 600; }
+    .cost-free { color: #16a34a; }
+    .cost-paid { color: #dc2626; }
+    .cost-varies { color: #d97706; }
+
+    .url { color: #2563eb; text-decoration: none; font-weight: 500; }
+
+    /* Summary box */
+    .summary-box {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 20px 0;
+    }
+    .summary-box h3 {
+      margin: 0 0 12px 0;
+      font-size: 15px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed #cbd5e1;
+      font-size: 13.5px;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0 0 0;
+      margin-top: 8px;
+      border-top: 2px solid #1e293b;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    /* Notes */
+    .note {
+      background: #fffbeb;
+      border-left: 4px solid #f59e0b;
+      padding: 12px 16px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+      color: #92400e;
+    }
+    .note strong { color: #78350f; }
+
+    .info {
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      padding: 12px 16px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+      color: #1e40af;
+    }
+
+    ul { padding-left: 20px; margin: 8px 0; }
+    li { margin: 4px 0; }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 2px solid #e2e8f0;
+      text-align: center;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    /* Print styles */
+    @media print {
+      body { font-size: 12px; }
+      .page { padding: 20px; max-width: 100%; }
+      .header { padding-bottom: 20px; margin-bottom: 24px; }
+      h2 { margin-top: 24px; }
+      table { page-break-inside: avoid; }
+      .summary-box { page-break-inside: avoid; }
+    }
+
+    @page {
+      margin: 1.5cm;
+      size: A4;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>CryptoPay — Deployment Requirements</h1>
+      <div class="subtitle">Vercel Pro Production Deployment — Complete Checklist</div>
+      <div class="date">Document Date: 26 February 2026 &nbsp;|&nbsp; Version 1.0</div>
+    </div>
+
+    <!-- SECTION 1: OVERVIEW -->
+    <h2><span class="num">1</span> Project Overview</h2>
+    <p>
+      CryptoPay is a full-stack cryptocurrency recurring payment platform. It enables businesses to accept automated crypto subscriptions from customers using Trust Wallet and MetaMask. The platform consists of a React frontend, Node.js backend, PostgreSQL database, and Solidity smart contracts deployed on EVM-compatible blockchains.
+    </p>
+    <p><strong>Deployment Target:</strong> Vercel Pro Plan — $20/month (Serverless)</p>
+
+    <!-- SECTION 2: REQUIREMENTS TABLE -->
+    <h2><span class="num">2</span> Complete Requirements List</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:5%">#</th>
+          <th style="width:22%">Requirement</th>
+          <th style="width:12%">Priority</th>
+          <th style="width:30%">Where To Get</th>
+          <th style="width:15%">Cost</th>
+          <th style="width:16%">Recurrence</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>Vercel Pro Account</strong></td>
+          <td><span class="badge badge-red">Required</span></td>
+          <td><a class="url" href="https://vercel.com">vercel.com</a><br>Sign up with GitHub → Upgrade to Pro</td>
+          <td><span class="cost cost-paid">$20/mo</span><br><span style="font-size:11px;color:#64748b">Includes per-minute cron,<br>60s function timeout,<br>1TB bandwidth</span></td>
+          <td>Monthly</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>GitHub Repository</strong></td>
+          <td><span class="badge badge-red">Required</span></td>
+          <td><a class="url" href="https://github.com">github.com</a><br>Push project code here</td>
+          <td><span class="cost cost-free">FREE</span></td>
+          <td>One-time</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>PostgreSQL Database</strong></td>
+          <td><span class="badge badge-red">Required</span></td>
+          <td>
+            <a class="url" href="https://neon.tech">neon.tech</a> (Recommended)<br>
+            <a class="url" href="https://supabase.com">supabase.com</a> (Alternative)<br>
+            <a class="url" href="https://vercel.com/storage/postgres">Vercel Postgres</a>
+          </td>
+          <td>
+            <span class="cost cost-free">FREE</span><br>
+            <span style="font-size:11px;color:#64748b">Neon: 0.5GB free<br>Pro: from $19/mo</span>
+          </td>
+          <td>Monthly</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>Executor Wallet</strong><br><span style="font-size:11px;color:#64748b">(Private Key needed)</span></td>
+          <td><span class="badge badge-red">Required</span></td>
+          <td>
+            Create in <a class="url" href="https://metamask.io">MetaMask</a><br>
+            Export Private Key from wallet
+          </td>
+          <td><span class="cost cost-free">FREE</span> to create<br><span class="cost cost-varies" style="font-size:11px">+ Gas funds needed</span></td>
+          <td>One-time + top-up</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>Executor Wallet Gas Funding</strong></td>
+          <td><span class="badge badge-red">Required</span></td>
+          <td>
+            Buy native tokens (ETH/MATIC/BNB) on the chains you operate on.<br>
+            Via any crypto exchange (Binance, Coinbase, WazirX)
+          </td>
+          <td><span class="cost cost-paid">$5–$50</span><br><span style="font-size:11px;color:#64748b">Per chain, depends on usage</span></td>
+          <td>Top-up as needed</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>Smart Contract Deployment</strong></td>
+          <td><span class="badge badge-red">Required</span></td>
+          <td>
+            Deployed via Hardhat from local machine using Deployer Wallet.<br>
+            One deployment per blockchain network.
+          </td>
+          <td><span class="cost cost-paid">$1–$10</span><br><span style="font-size:11px;color:#64748b">Gas fee per chain.<br>Polygon/BSC cheapest.</span></td>
+          <td>One-time per chain</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>Deployer Wallet</strong><br><span style="font-size:11px;color:#64748b">(Private Key needed)</span></td>
+          <td><span class="badge badge-yellow">Recommended</span></td>
+          <td>
+            Create in <a class="url" href="https://metamask.io">MetaMask</a><br>
+            Can be same as Executor wallet
+          </td>
+          <td><span class="cost cost-free">FREE</span> to create</td>
+          <td>One-time</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><strong>RPC Provider</strong><br><span style="font-size:11px;color:#64748b">(Blockchain API access)</span></td>
+          <td><span class="badge badge-yellow">Recommended</span></td>
+          <td>
+            <a class="url" href="https://www.alchemy.com">alchemy.com</a> (Best free tier)<br>
+            <a class="url" href="https://www.infura.io">infura.io</a><br>
+            <a class="url" href="https://www.quicknode.com">quicknode.com</a>
+          </td>
+          <td>
+            <span class="cost cost-free">FREE</span><br>
+            <span style="font-size:11px;color:#64748b">Free: 300M compute units/mo<br>Paid: from $49/mo</span>
+          </td>
+          <td>Monthly</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><strong>Domain Name</strong></td>
+          <td><span class="badge badge-green">Optional</span></td>
+          <td>
+            <a class="url" href="https://www.namecheap.com">namecheap.com</a><br>
+            <a class="url" href="https://domains.google">Google Domains</a><br>
+            <a class="url" href="https://www.godaddy.com">godaddy.com</a>
+          </td>
+          <td><span class="cost cost-paid">$8–$15/yr</span></td>
+          <td>Yearly</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td><strong>Block Explorer API Keys</strong><br><span style="font-size:11px;color:#64748b">(Etherscan, Polygonscan etc.)</span></td>
+          <td><span class="badge badge-green">Optional</span></td>
+          <td>
+            <a class="url" href="https://etherscan.io/apis">etherscan.io/apis</a><br>
+            <a class="url" href="https://polygonscan.com/apis">polygonscan.com/apis</a><br>
+            <a class="url" href="https://bscscan.com/apis">bscscan.com/apis</a>
+          </td>
+          <td><span class="cost cost-free">FREE</span></td>
+          <td>One-time</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- SECTION 3: ENV VARS -->
+    <h2><span class="num">3</span> Vercel Environment Variables</h2>
+    <p>These values must be set in <strong>Vercel Dashboard → Project Settings → Environment Variables</strong>:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:30%">Variable Name</th>
+          <th style="width:12%">Required?</th>
+          <th style="width:58%">Value / How To Generate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>DATABASE_URL</strong></td>
+          <td><span class="badge badge-red">Must</span></td>
+          <td>Connection string from your PostgreSQL provider.<br><code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:3px;">postgresql://user:pass@host/dbname?sslmode=require</code></td>
+        </tr>
+        <tr>
+          <td><strong>SESSION_SECRET</strong></td>
+          <td><span class="badge badge-red">Must</span></td>
+          <td>Generate with:<br><code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:3px;">node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"</code></td>
+        </tr>
+        <tr>
+          <td><strong>ENCRYPTION_MASTER_KEY</strong></td>
+          <td><span class="badge badge-red">Must</span></td>
+          <td>Generate with:<br><code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:3px;">node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"</code></td>
+        </tr>
+        <tr>
+          <td><strong>CRON_SECRET</strong></td>
+          <td><span class="badge badge-red">Must</span></td>
+          <td>Generate with:<br><code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:3px;">node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"</code></td>
+        </tr>
+        <tr>
+          <td><strong>EXECUTOR_PRIVATE_KEY</strong></td>
+          <td><span class="badge badge-yellow">Should</span></td>
+          <td>Private key from your Executor MetaMask wallet.<br>Format: <code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:3px;">0x followed by 64 hex characters</code></td>
+        </tr>
+        <tr>
+          <td><strong>DEPLOYER_PRIVATE_KEY</strong></td>
+          <td><span class="badge badge-yellow">Should</span></td>
+          <td>Private key from your Deployer MetaMask wallet.<br>Used for wallet-switching &amp; on-chain cancellations.</td>
+        </tr>
+        <tr>
+          <td><strong>SEPOLIA_RPC_URL</strong></td>
+          <td><span class="badge badge-green">Nice</span></td>
+          <td>From Alchemy/Infura dashboard. Format:<br><code style="font-size:11px;background:#f1f5f9;padding:2px 6px;border-radius:3px;">https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>⚠️ Security:</strong> Never share private keys or secrets publicly. All values should be entered only in the Vercel Environment Variables dashboard, never committed to Git.
+    </div>
+
+    <!-- SECTION 4: COST SUMMARY -->
+    <h2><span class="num">4</span> Cost Summary</h2>
+
+    <div class="summary-box">
+      <h3>Monthly Recurring Costs</h3>
+      <div class="summary-row">
+        <span>Vercel Pro Hosting</span>
+        <span class="cost cost-paid">$20/mo</span>
+      </div>
+      <div class="summary-row">
+        <span>PostgreSQL Database — Neon (Free tier)</span>
+        <span class="cost cost-free">$0/mo</span>
+      </div>
+      <div class="summary-row">
+        <span>RPC Provider — Alchemy (Free tier)</span>
+        <span class="cost cost-free">$0/mo</span>
+      </div>
+      <div class="summary-row">
+        <span>Domain name (optional)</span>
+        <span class="cost" style="color:#64748b">~$1/mo ($8–15/yr)</span>
+      </div>
+      <div class="summary-total">
+        <span>Total Monthly</span>
+        <span class="cost cost-paid">~$20/month</span>
+      </div>
+    </div>
+
+    <div class="summary-box">
+      <h3>One-Time Costs</h3>
+      <div class="summary-row">
+        <span>Smart Contract Deployment (gas per chain)</span>
+        <span class="cost cost-paid">$1–$10 per chain</span>
+      </div>
+      <div class="summary-row">
+        <span>Initial Executor Wallet Gas Funding</span>
+        <span class="cost cost-paid">$5–$50 per chain</span>
+      </div>
+      <div class="summary-total">
+        <span>Total One-Time (1 chain, e.g. Polygon)</span>
+        <span class="cost cost-paid">~$6–$20</span>
+      </div>
+    </div>
+
+    <div class="info">
+      <strong>💡 Cheapest Chain:</strong> Polygon and BSC (BNB Chain) have the lowest gas fees. Deploying on Polygon costs under $1. Ethereum Mainnet is the most expensive ($5–$50+ depending on gas prices).
+    </div>
+
+    <!-- SECTION 5: VERCEL PRO PLAN FEATURES -->
+    <h2><span class="num">5</span> Vercel Pro Plan — What You Get</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Vercel Pro ✅ (Selected)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monthly Cost</td>
+          <td><strong>$20/month</strong></td>
+        </tr>
+        <tr>
+          <td>Serverless Function Timeout</td>
+          <td><strong>60 seconds</strong> (enough for blockchain transactions)</td>
+        </tr>
+        <tr>
+          <td><strong>Cron Job Frequency</strong></td>
+          <td><strong>Every minute</strong> — ensures timely recurring payments</td>
+        </tr>
+        <tr>
+          <td>Bandwidth</td>
+          <td><strong>1 TB/month</strong></td>
+        </tr>
+        <tr>
+          <td>Team members</td>
+          <td>Unlimited</td>
+        </tr>
+        <tr>
+          <td>Custom domains</td>
+          <td>✅ Unlimited</td>
+        </tr>
+        <tr>
+          <td>SSL/HTTPS</td>
+          <td>✅ Automatic</td>
+        </tr>
+        <tr>
+          <td>Preview deployments</td>
+          <td>✅ Unlimited</td>
+        </tr>
+        <tr>
+          <td>Analytics</td>
+          <td>✅ Included</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info">
+      <strong>✅ Why Pro:</strong> The Pro plan is essential for this project because it provides <strong>per-minute cron scheduling</strong> — ensuring recurring crypto payments are executed on time. The Free plan only allows daily cron, which would delay payments by up to 24 hours.
+    </div>
+
+    <!-- SECTION 6: SUPPORTED CHAINS -->
+    <h2><span class="num">6</span> Supported Blockchain Networks</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Network</th>
+          <th>Type</th>
+          <th>Native Token</th>
+          <th>Deploy Cost (approx)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ethereum Mainnet</td><td>Mainnet</td><td>ETH</td><td>$5–$50</td></tr>
+        <tr><td>Polygon</td><td>Mainnet</td><td>MATIC/POL</td><td>$0.10–$1</td></tr>
+        <tr><td>BNB Chain (BSC)</td><td>Mainnet</td><td>BNB</td><td>$0.50–$3</td></tr>
+        <tr><td>Arbitrum</td><td>Mainnet</td><td>ETH</td><td>$0.50–$3</td></tr>
+        <tr><td>Optimism</td><td>Mainnet</td><td>ETH</td><td>$0.50–$3</td></tr>
+        <tr><td>Base</td><td>Mainnet</td><td>ETH</td><td>$0.20–$2</td></tr>
+        <tr><td>Avalanche</td><td>Mainnet</td><td>AVAX</td><td>$0.50–$3</td></tr>
+        <tr><td>Fantom</td><td>Mainnet</td><td>FTM</td><td>$0.10–$1</td></tr>
+        <tr><td>Sepolia</td><td>Testnet</td><td>SepoliaETH</td><td>FREE (test tokens)</td></tr>
+        <tr><td>Goerli</td><td>Testnet</td><td>GoerliETH</td><td>FREE (test tokens)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info">
+      <strong>💡 Recommendation:</strong> Start with <strong>Sepolia testnet</strong> (free) to validate everything works. Then deploy to <strong>Polygon</strong> for the cheapest production option.
+    </div>
+
+    <!-- SECTION 7: QUICK START -->
+    <h2><span class="num">7</span> Deployment Steps Summary</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:8%">Step</th>
+          <th>Action</th>
+          <th style="width:20%">Time Needed</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Create GitHub repository and push code</td><td>~10 minutes</td></tr>
+        <tr><td>2</td><td>Create PostgreSQL database (Neon.tech)</td><td>~5 minutes</td></tr>
+        <tr><td>3</td><td>Create MetaMask wallets (Executor + Deployer)</td><td>~5 minutes</td></tr>
+        <tr><td>4</td><td>Generate secret keys (SESSION_SECRET, ENCRYPTION_MASTER_KEY, CRON_SECRET)</td><td>~2 minutes</td></tr>
+        <tr><td>5</td><td>Sign up for Alchemy RPC (optional but recommended)</td><td>~5 minutes</td></tr>
+        <tr><td>6</td><td>Deploy smart contract to target chain(s)</td><td>~10 minutes</td></tr>
+        <tr><td>7</td><td>Create Vercel project, add all environment variables, deploy</td><td>~10 minutes</td></tr>
+        <tr><td>8</td><td>Push database schema using <code>npm run db:push</code></td><td>~2 minutes</td></tr>
+        <tr><td>9</td><td>Test: register, create plan, test payment flow</td><td>~15 minutes</td></tr>
+      </tbody>
+    </table>
+
+    <p style="text-align:center;margin-top:16px;font-weight:600;color:#16a34a;font-size:14px;">
+      ✅ Total estimated setup time: ~60 minutes
+    </p>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <p>CryptoPay — Crypto Recurring Payment Platform &nbsp;|&nbsp; Confidential &nbsp;|&nbsp; Prepared: 26 Feb 2026</p>
+      <p style="margin-top:4px;">To save as PDF: Open this file in browser → Press Ctrl+P → Select "Save as PDF"</p>
+    </div>
+
+  </div>
+</body>
+</html>
